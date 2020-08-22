@@ -1,21 +1,21 @@
 <template>
   <div id="body">
     <el-main>
-      <el-form ref="form" :model="form" label-width="80px" class="login-box">
+      <el-form ref="form" :model="form" :rules="dataRule" @keyup.enter.native="onSubmit()" label-width="80px" class="login-box" status-icon>
         <h3 class="login-title">欢迎登录</h3>
 
         <el-form-item label="用户名">
-          <el-input v-model="form.username"></el-input>
+          <el-input v-model="form.username"  placeholder="用户名"></el-input>
         </el-form-item>
 
         <el-form-item label="密码">
-          <el-input v-model="form.password" type="password"></el-input>
+          <el-input v-model="form.password" type="password" placeholder="密码"></el-input>
         </el-form-item>
 
         <el-form-item label="验证码">
           <el-row>
             <el-col :span="14">
-              <el-input  v-model="form.verifyCode"> </el-input>
+              <el-input  v-model="form.captcha"> </el-input>
             </el-col>
             <el-col :span="10" class="login-captcha">
               <img :src="captchaPath" @click="getCaptcha()" alt="" />
@@ -42,7 +42,7 @@ export default {
       form: {
         username: "",
         password: "",
-        verifyCode:"",
+        captcha:"",
         uuid: ""
       },
       captchaPath:""
@@ -65,7 +65,7 @@ export default {
   						message: this.$t('validate.required'),
   						trigger: 'blur'
   					}],
-  					verifyCode: [{
+  					captcha: [{
   						required: true,
   						message: this.$t('validate.required'),
   						trigger: 'blur'
@@ -85,7 +85,7 @@ export default {
      								'username': this.form.username,
      								'password': this.form.password,
      								'uuid': this.form.uuid,
-     								'verifyCode': this.form.verifyCode
+     								'captcha': this.form.captcha
      							}
      						}).then(({
      							data
@@ -107,7 +107,7 @@ export default {
     // 获取验证码
     getCaptcha() {
       this.$http({
-        url: this.$http.adornUrl("/validate/code/"+this.form.uuid),
+        url: this.$http.adornUrl("/sys/validate/code/"+this.form.uuid),
         method: "get",
         data: ""
       }).then(({ data }) => {

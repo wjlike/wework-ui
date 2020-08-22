@@ -13,9 +13,6 @@
 			<el-form-item label="确认密码" prop="comfirmPassword" :class="{ 'is-required': !dataForm.id }">
 				<el-input v-model="dataForm.comfirmPassword" type="password" placeholder="确认密码"></el-input>
 			</el-form-item>
-			<el-form-item label="管理机构" prop="manageCom">
-				<ISelect :url="'/comm/com/codelistAll'" v-model="dataForm.manageCom" :wid="'100%'"></ISelect>
-			</el-form-item>
 			<el-form-item label="邮箱" prop="email">
 				<el-input v-model="dataForm.email" placeholder="邮箱"></el-input>
 			</el-form-item>
@@ -201,7 +198,6 @@
 								this.dataForm.mobile = data.user.mobile
 								this.dataForm.roleIdList = data.user.roleIdList
 								this.dataForm.status = data.user.status
-								this.dataForm.manageCom = data.user.manageCom
 							}
 						})
 					}
@@ -223,8 +219,7 @@
 								'email': this.dataForm.email,
 								'mobile': this.dataForm.mobile,
 								'status': this.dataForm.status,
-								'roleIdList': this.dataForm.roleIdList,
-								'manageCom': this.dataForm.manageCom
+								'roleIdList': this.dataForm.roleIdList
 							})
 						}).then(({
 							data

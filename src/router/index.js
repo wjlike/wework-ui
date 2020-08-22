@@ -114,7 +114,7 @@ router.beforeEach((to, from, next) => {
 		next()
 	} else {
 		http({
-			url: http.adornUrl('/sys/menus/current'),
+			url: http.adornUrl('/sys/menu/nav'),
 			method: 'get',
 			params: http.adornParams()
 		}).then(({

@@ -7,7 +7,7 @@
       <icon-svg :name="menu.icon || ''" class="site-sidebar__menu-icon"></icon-svg>
       <span>{{ menu.name }}</span>
     </template>
-     <sub-menu
+    <sub-menu
       v-for="item in menu.list" 
       :key="item.menuId"
       :menu="item"

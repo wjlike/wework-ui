@@ -19,8 +19,6 @@
 			</el-table-column>
       <el-table-column prop="username" header-align="center" align="center" label="用户名" :show-overflow-tooltip='true'>
       </el-table-column>
-			<el-table-column prop="manageCom" header-align="center" align="center" label="管理机构" :show-overflow-tooltip='true'>
-			</el-table-column>
 			<el-table-column prop="email" header-align="center" align="center" label="邮箱" :show-overflow-tooltip='true'>
 			</el-table-column>
 			<el-table-column prop="mobile" header-align="center" align="center" label="手机号" :show-overflow-tooltip='true'>
