@@ -99,7 +99,7 @@
          width="150"
          label="操作">
          <template slot-scope="scope">
-           <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">详情</el-button>
+           <el-button type="text" size="small" @click="detailHandle(scope.row.id)">详情</el-button>
            <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">移除</el-button>
          </template>
        </el-table-column>
@@ -192,12 +192,12 @@
                       this.dataListLoading = false
                     })
                   },
-                  // // 新增 / 修改
-                  // detailHandle (id) {
-                  //   this.detailVisible = true
-                  //   this.$nextTick(() => {
-                  //     this.$refs.detail.init(id)
-                  //   })
+                  // 新增 / 修改
+                  detailHandle (id) {
+                    this.detailVisible = true
+                    this.$nextTick(() => {
+                      this.$refs.detail.init(id)
+                    })
                   // },
                   // 每页数
                   sizeChangeHandle (val) {

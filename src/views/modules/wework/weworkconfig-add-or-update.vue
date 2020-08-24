@@ -35,8 +35,8 @@
     <el-form-item label="是否启用" prop="enable">
        <el-switch
          v-model="dataForm.enable"
-         active-color="#55aaff"
-         inactive-color="#ff5500">
+         active-text="是"
+         inactive-text="否">
        </el-switch>
     </el-form-item>
 
@@ -60,7 +60,7 @@
           secret: '',
           primKey: '',
           externalSecret: '',
-          enable: true
+          enable: ''
         },
         dataRule: {
           userid: [
@@ -89,7 +89,7 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.id) {
             this.$http({
-              url: this.$http.adornUrl(`/sys/weworkuser/info/${this.dataForm.id}`),
+              url: this.$http.adornUrl(`/sys/weworkconfig/info/${this.dataForm.id}`),
               method: 'get',
               params: this.$http.adornParams()
             }).then(({data}) => {
@@ -100,6 +100,7 @@
                 this.dataForm.secret = data.weworkUser.secret
                 this.dataForm.primKey = data.weworkUser.primKey
                 this.dataForm.externalSecret = data.weworkUser.externalSecret
+                this.dataForm.enable = data.weworkUser.enable
               }
             })
           }
@@ -110,7 +111,7 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/sys/weworkuser/${!this.dataForm.id ? 'save' : 'update'}`),
+              url: this.$http.adornUrl(`/sys/weworkconfig/${!this.dataForm.id ? 'save' : 'update'}`),
               method: 'post',
               data: this.$http.adornData({
                 'id': this.dataForm.id || undefined,
@@ -119,7 +120,8 @@
                 'cropName': this.dataForm.cropName,
                 'secret': this.dataForm.secret,
                 'primKey': this.dataForm.primKey,
-                'externalSecret': this.dataForm.externalSecret
+                'externalSecret': this.dataForm.externalSecret,
+                'enable': this.dataForm.enable
               })
             }).then(({data}) => {
               if (data && data.code === 0) {

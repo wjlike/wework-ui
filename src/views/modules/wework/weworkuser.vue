@@ -2,11 +2,20 @@
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.cropName" placeholder="公司名称" clearable></el-input>
+        <el-col :span="12">
+        <el-input v-model="dataForm.cropName" placeholder="企业微信" clearable></el-input>
+        </el-col>
+        <el-col :span="12">
+          <el-input v-model="dataForm.name" placeholder="姓名" clearable></el-input>
+        </el-col>
+
+
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button  type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button  type="primary" @click="addOrUpdateHandle()">添加人员</el-button>
+        <el-button  type="primary" @click="addOrUpdateHandle()">批量添加</el-button>
+         <el-button  type="primary" @click="addOrUpdateHandle()">批量导出</el-button>
         <el-button  type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
@@ -22,39 +31,54 @@
         align="center"
         width="50">
       </el-table-column>
-
       <el-table-column
-        prop="cropName"
+        prop="id"
         header-align="center"
         align="center"
-        label="公司名称">
+        label="">
       </el-table-column>
-
       <el-table-column
-        prop="cropId"
+        prop="userid"
         header-align="center"
         align="center"
-        label="cropId">
+        label="用户id">
       </el-table-column>
-
       <el-table-column
-        prop="secret"
+        prop="name"
         header-align="center"
         align="center"
-        label="secret">
+        label="姓名">
       </el-table-column>
-
       <el-table-column
-        prop="enable"
+        prop="department"
         header-align="center"
         align="center"
-        label="是否开启">
-         <template slot-scope="scope">
-           <span>{{scope.row.enable}}</span>
-          </template>
+        label="部门">
       </el-table-column>
-
-
+      <el-table-column
+        prop="position"
+        header-align="center"
+        align="center"
+        label="职位">
+      </el-table-column>
+      <el-table-column
+        prop="mobile"
+        header-align="center"
+        align="center"
+        label="电话">
+      </el-table-column>
+      <el-table-column
+        prop="gender"
+        header-align="center"
+        align="center"
+        label="性别">
+      </el-table-column>
+      <el-table-column
+        prop="email"
+        header-align="center"
+        align="center"
+        label="Email">
+      </el-table-column>
       <el-table-column
         fixed="right"
         header-align="center"
@@ -82,7 +106,7 @@
 </template>
 
 <script>
-  import AddOrUpdate from './weworkconfig-add-or-update'
+  import AddOrUpdate from './weworkuser-add-or-update'
   export default {
     data () {
       return {
@@ -109,12 +133,12 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/sys/weworkconfig/list'),
+          url: this.$http.adornUrl('/sys/weworkuser/list'),
           method: 'get',
           params: this.$http.adornParams({
             'page': this.pageIndex,
             'limit': this.pageSize,
-            'cropName': this.dataForm.cropName
+            'key': this.dataForm.key
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
@@ -160,7 +184,7 @@
           type: 'warning'
         }).then(() => {
           this.$http({
-            url: this.$http.adornUrl('/sys/weworkconfig/delete'),
+            url: this.$http.adornUrl('/sys/weworkuser/delete'),
             method: 'post',
             data: this.$http.adornData(ids, false)
           }).then(({data}) => {
