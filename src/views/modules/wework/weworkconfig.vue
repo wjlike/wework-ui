@@ -45,6 +45,13 @@
       </el-table-column>
 
       <el-table-column
+        prop="enable"
+        header-align="center"
+        align="center"
+        label="是否开启">
+      </el-table-column>
+
+      <el-table-column
         fixed="right"
         header-align="center"
         align="center"
@@ -71,7 +78,7 @@
 </template>
 
 <script>
-  import AddOrUpdate from './weworkuser-add-or-update'
+  import AddOrUpdate from './weworkconfig-add-or-update'
   export default {
     data () {
       return {

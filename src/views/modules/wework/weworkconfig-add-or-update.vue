@@ -31,6 +31,15 @@
         <el-input v-model="dataForm.externalSecret" placeholder="外部secret"></el-input>
         </el-col>
     </el-form-item>
+
+    <el-form-item label="是否启用" prop="enable">
+       <el-switch
+         v-model="dataForm.enable"
+         active-color="#55aaff"
+         inactive-color="#ff5500">
+       </el-switch>
+    </el-form-item>
+
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
@@ -50,7 +59,8 @@
           cropName: '',
           secret: '',
           primKey: '',
-          externalSecret: ''
+          externalSecret: '',
+          enable: true
         },
         dataRule: {
           userid: [
