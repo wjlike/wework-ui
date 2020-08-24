@@ -123,7 +123,7 @@ export default {
 
 <style>
 #body {
-  background: url(../../assets/img/backgroudimg.gif) no-repeat;
+  background: url(../../assets/img/backgroudimg.jpg) no-repeat;
   background-position: center;
   height: 100%;
   width: 100%;
