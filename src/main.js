@@ -7,6 +7,7 @@ import VueCookie from 'vue-cookie' // api: https://github.com/alfhen/vue-cookie
 import '@/element-ui' // api: https://github.com/ElemeFE/element
 import '@/icons' // api: http://www.iconfont.cn/
 import '@/element-ui-theme'
+import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/scss/index.scss'
 import httpRequest from '@/utils/httpRequest' // api: https://github.com/axios/axios
 import { isAuth } from '@/utils'
@@ -20,8 +21,8 @@ import VueCropper from 'vue-cropper'
 
 Vue.use(VueCropper)
 Vue.use(Element, {
-	size: 'default',
-	i18n: (key, value) => i18n.t(key, value)
+  size: 'default',
+  i18n: (key, value) => i18n.t(key, value)
 })
 Vue.use(VueCookie)
 Vue.config.productionTip = false
@@ -39,15 +40,14 @@ Vue.prototype.isAuth = isAuth // 权限方法
 // 保存整站vuex本地储存初始状态
 window.SITE_CONFIG['storeState'] = cloneDeep(store.state)
 
-
 /* eslint-disable no-new */
 new Vue({
-	el: '#app',
-	router,
-	store,
-	i18n,
-	template: '<App/>',
-	components: {
-		App
-	}
+  el: '#app',
+  router,
+  store,
+  i18n,
+  template: '<App/>',
+  components: {
+    App
+  }
 })

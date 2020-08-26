@@ -75,6 +75,7 @@
               method: 'post',
               data: this.$http.adornData({
                 'id': this.dataForm.id || undefined,
+                'cropid':this.dataForm.cropid,
                 'name': this.dataForm.name,
                 'nameEn': this.dataForm.nameEn,
                 'parentid': this.dataForm.parentid

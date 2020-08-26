@@ -49,9 +49,6 @@
           email: ''
         },
         dataRule: {
-          userid: [
-            { required: true, message: '用户id不能为空', trigger: 'blur' }
-          ],
           name: [
             { required: true, message: '姓名不能为空', trigger: 'blur' }
           ],

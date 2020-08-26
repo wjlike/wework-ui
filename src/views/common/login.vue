@@ -52,6 +52,9 @@ export default {
     this.form.uuid = getUUID();
     this.getCaptcha(); //验证码
   },
+  mounted () {
+    this.getCaptcha()
+  },
   computed: {
   			dataRule() {
   				return {
@@ -107,9 +110,8 @@ export default {
     // 获取验证码
     getCaptcha() {
       this.$http({
-        url: this.$http.adornUrl("/sys/validate/code/"+this.form.uuid),
-        method: "get",
-        data: ""
+        url: this.$http.adornUrl(`/sys/validate/code/${this.form.uuid}`),
+        method: "get"
       }).then(({ data }) => {
         if (data) {
           this.captchaPath = data;

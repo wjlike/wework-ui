@@ -10,7 +10,14 @@
        <el-row>
          <el-form-item label="企业微信" prop="cropNames">
            <el-col :span="24">
-           <el-input v-model="dataForm.cropName" placeholder="企业微信" clearable></el-input>
+           <el-select v-model="dataForm.cropName" placeholder="请选择" width="220px" @change="handleChange">
+             <el-option
+               v-for="item in scapeOptions"
+               :key="item.value"
+               :label="item.label"
+               :value="item.value">
+             </el-option>
+           </el-select>
            </el-col>
          </el-form-item>
 
@@ -125,7 +132,8 @@
                   return {
                       chartColumn: null,
                       dataForm: {
-                        key: ''
+                        key: '',
+                        cropName:'小鹿斑比'
                       },
                       dataList: [],
                       pageIndex: 1,
@@ -134,6 +142,12 @@
                       dataListLoading: false,
                       dataListSelections: [],
                       // detailVisible: false
+                      scapeOptions:[
+                        {
+                                  value: '123',
+                                  label: '小鹿斑比'
+                                }
+                      ]
                   }
               },
               components: {
@@ -161,7 +175,7 @@
                           type: 'value'
                         },
                         series: [{
-                          data: [1, 1, 2, 4, 2, Math.random(10)*10, Math.random(10)*10],
+                          data: [0, 0, 0, 1, 1, 2, 2],
                           type: 'line'
                         }]
                   });
@@ -198,7 +212,7 @@
                     this.$nextTick(() => {
                       this.$refs.detail.init(id)
                     })
-                  // },
+                   },
                   // 每页数
                   sizeChangeHandle (val) {
                     this.pageSize = val

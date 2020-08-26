@@ -18,7 +18,7 @@
 			i18nHandle(val, oldVal) {
 				Cookies.set("language", val);
 				document.querySelector("html").setAttribute("lang", val);
-				document.title = messages[val].brand.lg;
+				// document.title = messages[val].brand.lg;
 				// 非登录页面，切换语言刷新页面
 				if(this.$route.name !== "login" && oldVal) {
 					window.location.reload();
@@ -29,6 +29,9 @@
 </script>
 
 <style>
+  .el-input__icon {
+    line-height: 100%!important;
+  }
 	.el-table td,
 	.el-table th {
 		padding: 2px 0!important;

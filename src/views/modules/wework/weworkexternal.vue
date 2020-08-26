@@ -3,7 +3,16 @@
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
     <el-form-item label="企业微信" prop="cropNames">
       <el-col :span="24">
-      <el-input v-model="dataForm.cropId" placeholder="企业微信" clearable></el-input>
+          <el-col :span="24">
+          <el-select v-model="dataForm.cropName" placeholder="请选择" width="220px" @change="handleChange">
+            <el-option
+              v-for="item in scapeOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+          </el-col>
       </el-col>
     </el-form-item>
 
@@ -90,7 +99,8 @@
     data () {
       return {
         dataForm: {
-          key: ''
+          key: '',
+          cropName:'小鹿斑比'
         },
         dataList: [],
         pageIndex: 1,
@@ -98,7 +108,13 @@
         totalPage: 0,
         dataListLoading: false,
         dataListSelections: [],
-        addOrUpdateVisible: false
+        addOrUpdateVisible: false,
+        scapeOptions:[
+          {
+                    value: '123',
+                    label: '小鹿斑比'
+                  }
+        ]
       }
     },
     components: {
