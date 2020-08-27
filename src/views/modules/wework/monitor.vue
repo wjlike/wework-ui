@@ -162,23 +162,37 @@
               },
               methods: {
                   drawLine(){
-                      this.chartColumn = echarts.init(document.getElementById('chartColumn'));
+                    this.$http({
+                      url: this.$http.adornUrl('/search/report/echarts/sensiticeRealTime'),
+                      method: 'get',
+                      params: this.$http.adornParams({
+                        'key': this.dataForm.key
+                      })
+                    }).then(({data}) => {
+                      if (data && data.code === 0) {
 
-                      this.chartColumn.setOption({
-                        title: { text: '风险监控' },
-                        tooltip: {},
-                        xAxis: {
-                          type: 'category',
-                          data: ['1时', '2时', '3时', '4时', '5时', '6时', '7时']
-                        },
-                        yAxis: {
-                          type: 'value'
-                        },
-                        series: [{
-                          data: [0, 0, 0, 1, 1, 2, 2],
-                          type: 'line'
-                        }]
-                  });
+                         this.chartColumn = echarts.init(document.getElementById('chartColumn'));
+                         this.chartColumn.setOption({
+                               title: { text: '风险监控' },
+                               tooltip: {},
+                               xAxis: {
+                                 type: 'category',
+                                 data: data.data.xAxis
+                               },
+                               yAxis: {
+                                 type: 'value'
+                               },
+                               series: [{
+                                 data: data.data.series,
+                                 type: 'line'
+                               }]
+                         });
+
+                      }
+                    })
+
+
+
                   },
                   getDataList () {
                     this.dataListLoading = true
