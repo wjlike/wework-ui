@@ -4,14 +4,7 @@
       <el-form-item>
         <el-col :span="12">
           <el-col :span="24">
-          <el-select v-model="dataForm.cropName" placeholder="请选择" width="220px" @change="handleChange">
-            <el-option
-              v-for="item in scapeOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
+              <ISelect url="/sys/weworkconfig/userconfig" fileType = '{"value":"cropId","label":"cropName"}' v-model="dataForm.cropId" :wid="wid"></ISelect>
           </el-col>
         </el-col>
         <el-col :span="12">
@@ -87,31 +80,28 @@
 </template>
 
 <script>
+  import ISelect from '@/views/common/selectone'
   import AddOrUpdate from './weworkdepartment-add-or-update'
   export default {
     data () {
       return {
         dataForm: {
           name: '',
-          cropName:'小鹿斑比'
+          cropId:''
         },
         dataList: [],
         pageIndex: 1,
         pageSize: 10,
         totalPage: 0,
+        wid: '100%',
         dataListLoading: false,
         dataListSelections: [],
-        addOrUpdateVisible: false,
-        scapeOptions:[
-          {
-                    value: '123',
-                    label: '小鹿斑比'
-                  }
-        ]
+        addOrUpdateVisible: false
       }
     },
     components: {
-      AddOrUpdate
+      AddOrUpdate,
+      ISelect
     },
     activated () {
       this.getDataList()
@@ -126,7 +116,8 @@
           params: this.$http.adornParams({
             'page': this.pageIndex,
             'limit': this.pageSize,
-            'name': this.dataForm.name
+            'name': this.dataForm.name,
+            'cropId':this.dataForm.cropId,
           })
         }).then(({data}) => {
           if (data && data.code === 0) {

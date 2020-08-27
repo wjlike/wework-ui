@@ -3,14 +3,7 @@
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
         <el-col :span="12">
-        <el-select v-model="dataForm.cropName" placeholder="请选择" width="220px" @change="handleChange">
-          <el-option
-            v-for="item in scapeOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
+        <ISelect url="/sys/weworkconfig/userconfig" fileType = '{"value":"cropId","label":"cropName"}' width="220px" v-model="dataForm.cropName"></ISelect>
         </el-col>
         <el-col :span="12">
           <el-input v-model="dataForm.name" placeholder="姓名" clearable></el-input>
@@ -113,6 +106,7 @@
 </template>
 
 <script>
+  import ISelect from '@/views/common/selectone'
   import AddOrUpdate from './weworkuser-add-or-update'
   export default {
     data () {
@@ -137,7 +131,8 @@
       }
     },
     components: {
-      AddOrUpdate
+      AddOrUpdate,
+      ISelect
     },
     activated () {
       this.getDataList()

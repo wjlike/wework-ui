@@ -2,7 +2,6 @@
 	<div>
 		<el-select v-model="svalue" :placeholder="$t('commom.choice')" :style="{width:wid}" :filter-method="dataFilter" :value="{v:va}" :disabled='isDisabled?true:false' @change="doSelect" filterable>
 			<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" width="280px">
-				<span v-if="item.value" style="float: left;margin-right: 8px;">{{ item.value }}</span>
 				<span v-if="item.label" style="float: right; color: purple ;">{{ item.label }}</span>
 			</el-option>
 		</el-select>
@@ -27,6 +26,11 @@
 					'value': 'label',
 					'label': 'value'
 				};
+        if(this.fileType === undefined){
+
+        }else{
+          ft = this.fileType;
+        }
 				let _data = [];
 				_data[0] = {};
 				if(data == null) {
@@ -46,7 +50,7 @@
 				//远程请求回来的数据
 				http({
 					url: http.adornUrl(this.url),
-					method: 'post',
+					method: 'get',
 					data: http.adornData(null, false)
 				}).then(({
 					data
@@ -67,7 +71,7 @@
 						}
 					})
 				} else {
-					//当输入框为空 
+					//当输入框为空
 					this.options = this.copyOptions;
 				}
 			},

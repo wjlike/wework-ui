@@ -1,9 +1,8 @@
 <template>
 	<div>
-		<el-select v-model="svalue" :placeholder="$t('commom.choice')" :style="{width:wid}" :filter-method="dataFilter" :value="{v:va}" :disabled='isDisabled?true:false' @change="doSelect" filterable>
-			<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.label" width="280px">
-				<span v-if="item.value" style="float: left;margin-right: 8px;">{{ item.value }}</span>
-				<span v-if="item.label" style="float: right; color: purple ;">{{ item.label }}</span>
+		<el-select v-model="svalue"  :filter-method="dataFilter" :value="{v:va}" :disabled='isDisabled?true:false' @change="doSelect" filterable>
+			<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.label" >
+				<span v-if="item.label">{{ item.label }}</span>
 			</el-option>
 		</el-select>
 	</div>
@@ -18,24 +17,34 @@
 			return {
 				options: [],
 				svalue: this.value,
-				copyOptions: [] //用于存储已经从后台请求到的码表信息
+				copyOptions: [] ,//用于存储已经从后台请求到的码表信息,
+        key:''
 			}
 		},
 		methods: { //转换下拉框下的字段
 			_dataTransform(data) {
+
+        var fileTypejson = JSON.parse(this.fileType);
+
 				var ft = {
 					'value': 'value',
 					'label': 'label'
 				};
+        if(fileTypejson !== undefined){
+          ft = fileTypejson;
+        };
 				let _data = [];
 				_data[0] = {};
 				if(data == null) {
 					return;
 				}
+
+        this.svalue = data[0][ft.label];
+
 				for(let i = 0; i < data.length; i++) {
-					_data[i + 1] = {};
-					_data[i + 1].label = data[i][ft.label];
-					_data[i + 1].value = data[i][ft.value];
+					_data[i] = {};
+					_data[i].label = data[i][ft.label];
+					_data[i].value = data[i][ft.value];
 				}
 				return _data;
 			},
@@ -46,7 +55,7 @@
 				//远程请求回来的数据
 				http({
 					url: http.adornUrl(this.url),
-					method: 'post',
+					method: 'get',
 					data: http.adornData(null, false)
 				}).then(({
 					data
@@ -67,7 +76,7 @@
 						}
 					})
 				} else {
-					//当输入框为空 
+					//当输入框为空
 					this.options = this.copyOptions;
 				}
 			},

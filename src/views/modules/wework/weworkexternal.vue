@@ -4,14 +4,7 @@
     <el-form-item label="企业微信" prop="cropNames">
       <el-col :span="24">
           <el-col :span="24">
-          <el-select v-model="dataForm.cropName" placeholder="请选择" width="220px" @change="handleChange">
-            <el-option
-              v-for="item in scapeOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
+            <ISelect url="/sys/weworkconfig/userconfig" fileType = '{"value":"cropId","label":"cropName"}' v-model="dataForm.cropName" :wid="wid"></ISelect>
           </el-col>
       </el-col>
     </el-form-item>
@@ -94,6 +87,7 @@
 </template>
 
 <script>
+  import ISelect from '@/views/common/selectone'
   import AddOrUpdate from './weworkexternal-add-or-update'
   export default {
     data () {
@@ -118,7 +112,8 @@
       }
     },
     components: {
-      AddOrUpdate
+      AddOrUpdate,
+      ISelect
     },
     activated () {
       this.getDataList()
